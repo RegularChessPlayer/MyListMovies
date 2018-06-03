@@ -7,9 +7,8 @@ import com.google.firebase.database.FirebaseDatabase
 
 class FavoriteViewModel{
 
-    val database = FirebaseDatabase.getInstance().getReference()
     val user = User.instance
-
+    val database = FirebaseDatabase.getInstance().getReference()
 
     fun favoriteMovie(movie: Movie, callback: (status: Boolean, message: String?) -> Unit){
         try{
