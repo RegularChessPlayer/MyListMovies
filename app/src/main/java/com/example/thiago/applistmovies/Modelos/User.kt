@@ -1,9 +1,15 @@
 package com.example.thiago.applistmovies.Modelos
 
-class User(var login: String? = "teste@gmail.com" , var password: String? = "123456"){
+class User private constructor() {
 
-    fun printDescpriton(){
-        println("Meu login: $login  Minha Senha: $password" )
+    private object Holder { val INSTANCE = User() }
+
+    companion object {
+        val instance: User by lazy { Holder.INSTANCE }
     }
+
+    var login: String? = "teste@gmail.com"
+    var password: String? = "123456"
+    var uuid: String? = ""
 
 }

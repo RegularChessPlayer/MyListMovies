@@ -7,7 +7,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 class LoginViewModel{
 
-    val user = User()
+    val user = User.instance
     val fireBaseEntity = FirebaseAuth.getInstance()
 
     fun setUserParamenters(login: String, password: String){
@@ -20,6 +20,7 @@ class LoginViewModel{
             fireBaseEntity.signInWithEmailAndPassword(user.login!!, user.password!!)
                     .addOnCompleteListener {task: Task<AuthResult> ->
                         if(task.isSuccessful){
+                            user.uuid = task.getResult().user.uid
                             return@addOnCompleteListener callback(true, null)
                         }else{
                             return@addOnCompleteListener callback(false,  "Usuário não Válido")
@@ -51,7 +52,5 @@ class LoginViewModel{
             }
         }
     }
-
-
 
 }

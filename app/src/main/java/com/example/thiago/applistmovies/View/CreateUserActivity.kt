@@ -3,31 +3,18 @@ package com.example.thiago.applistmovies.View
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.widget.Button
-import android.widget.TextView
-import com.example.thiago.applistmovies.Modelos.User
 import com.example.thiago.applistmovies.R
 import com.example.thiago.applistmovies.ViewModel.LoginViewModel
+import kotlinx.android.synthetic.main.activity_create_user.*
 
 class CreateUserActivity: AppCompatActivity(){
-
-    lateinit var loginField: TextView
-    lateinit var passwordField: TextView
-    lateinit var confirmPasswordField: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_user)
-
-        val confirmButton = findViewById(R.id.confirm_button_create_user) as Button
-
-        loginField = findViewById(R.id.email_text_create_user)
-        passwordField = findViewById(R.id.password_text_create_user)
-        confirmPasswordField = findViewById(R.id.confirm_text_create_user)
-
-        confirmButton.setOnClickListener(){
-            LoginViewModel.cadastrate(loginField.text.toString(),
-                    passwordField.text.toString(), confirmPasswordField.text.toString()){
+        confirm_button_create_user.setOnClickListener(){
+            LoginViewModel.cadastrate(email_text_create_user.text.toString(),
+                    password_text_create_user.text.toString(), confirm_text_create_user.text.toString()){
                 status: Boolean, message: String? ->
                 if(status){
                     val builder =  AlertDialog.Builder(this@CreateUserActivity)
@@ -48,10 +35,9 @@ class CreateUserActivity: AppCompatActivity(){
     }
 
     fun clearFields(){
-        loginField.text = ""
-        passwordField.text = ""
-        confirmPasswordField.text = ""
+        email_text_create_user.setText("")
+        password_text_create_user.setText("")
+        confirm_text_create_user.setText("")
     }
-
 
 }

@@ -8,28 +8,25 @@ import android.widget.Button
 import android.widget.TextView
 import com.example.thiago.applistmovies.R
 import com.example.thiago.applistmovies.ViewModel.LoginViewModel
+import kotlinx.android.synthetic.main.activity_login.*
 
 
 class LoginActivity : AppCompatActivity() {
 
     val loginViewModel = LoginViewModel()
-    lateinit var loginField: TextView
-    lateinit var passwordField: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        loginField = findViewById(R.id.user_login) as TextView
-        passwordField = findViewById(R.id.password_login) as TextView
-        val btnLogin = findViewById(R.id.login_button_login) as Button
-        val btnSign = findViewById(R.id.signin_button_login) as Button
+
         fillCamps()
         //bind elements
-        btnLogin.setOnClickListener{
+        login_button_login.setOnClickListener{
             updateCampsViewModel()
             loginViewModel.login { status, message ->
                 if(status){
-                    println("Sucesso") // go to list movies
+                    val intent = Intent(this, FavoriteActivity::class.java)
+                    startActivity(intent)
                 }else{
                     val builder =  AlertDialog.Builder(this@LoginActivity)
                     builder.setTitle("Atenção")
@@ -39,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        btnSign.setOnClickListener{
+        password_login.setOnClickListener{
             val intent = Intent(this, CreateUserActivity::class.java)
             startActivity(intent)
         }
@@ -47,12 +44,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun updateCampsViewModel(){
-        loginViewModel.setUserParamenters(loginField.text.toString(), passwordField.text.toString())
+        loginViewModel.setUserParamenters(user_login.text.toString(), password_login.text.toString())
     }
 
     fun fillCamps(){
-        loginField.setText(loginViewModel.user.login)
-        passwordField.setText(loginViewModel.user.password)
+        user_login.setText(loginViewModel.user.login)
+        password_login.setText(loginViewModel.user.password)
     }
 
 }
